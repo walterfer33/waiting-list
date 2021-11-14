@@ -13,7 +13,7 @@ const fs = require('fs');
 const { prommisify } = require('util');
 const app = express();
 const router = express.Router();
-const db=require('./lib/config.js');
+const data = [{ID:1, FECHA:'2021-11-03', ORGANO:'CORAZON', GENERO:'MASCULINO', HORA:'22:53:21', ATENDIDO:'DR. LARA', RESPONSABLE:'JUAN MENDEZ', SALA:'CIRUGIA',IMAGEN:'child.png', UNIDAD:'21'},{ID:2, FECHA:'2021-11-03', ORGANO:'CORAZON', GENERO:'MASCULINO', HORA:'22:53:21', ATENDIDO:'DR. LARA', RESPONSABLE:'JUAN MENDEZ', SALA:'CIRUGIA',IMAGEN:'child.png', UNIDAD:'21'}];
 
 
 
@@ -26,13 +26,9 @@ app.use('/',express.static(__dirname + '/bootstrap/fontawesome/css'));
 app.use('/',express.static(__dirname + '/img'));
 
 app.get('/',(req,res)=>{
-	var sql= 'SELECT *,TIMESTAMPDIFF(DAY, FECHA, CURDATE()) As TIEMPO FROM tabla_pacientes ORDER BY FECHA ASC';
-	db.query(sql, function(err,data,fields){
-		if (err) throw err;
 	res.render( __dirname+ '/view/index.html', {data: data});
    console.log(data);
-	});
-});
+ });
 
 app.listen(app.get('port'),()=> {
 	console.log('Servidor en el puerto', app.get('port'));
