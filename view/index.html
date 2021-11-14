@@ -1,0 +1,101 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>HIS WEBVIEW</title>
+  <script src="jquery-2.1.0.min.js"></script>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="all.css">
+  <script src="bootstrap.min.js"></script>
+  <script type="text/javascript">
+    function Animacion() {
+      var el = $(".table-responsive");
+
+      function anim() {
+        var st = el.scrollTop();
+        var sb = el.prop("scrollHeight") - el.innerHeight();
+        el.animate({
+          scrollTop: st < sb / 2 ? sb : 0
+        }, 50000, anim);
+      }
+
+      function stop() {
+        el.stop();
+      }
+
+      function Refrescar() {
+        location.reload();
+      }
+
+      anim();
+      el.hover(stop, anim);
+      setInterval(Refrescar, 60000);
+    }
+  </script>
+</head>
+
+<body onload="Animacion();">
+  <section class="content">
+    <div class="header">
+      <div id="centrado">
+        <p class="h4">Lista espera de transplantes</p>
+      </div>
+    </div>
+  </section>
+  <div class="table-responsive">
+    <table class="table table-filter table-hover">
+      <tbody>
+        <%
+					var x=0; 
+					for(i=0; i< data.length; i++){
+					x=x+1;
+						%>
+        <tr data-status="pagado">
+          <td>
+            <a class="star">
+              <%=x %>&nbsp;<i class="fas fa-ambulance"></i>
+            </a>
+          </td>
+          <td>
+            <div class="media">
+              <a href="#" class="pull-left">
+                <img src="<%=data[i].IMAGEN %>" class="media-photo">
+              </a>
+              <div class="media-body">
+                <span class="media-meta pull-right">Fecha:&nbsp;<%=data[i].FECHA %></span>
+                <h2 class="accidente">Organo:&nbsp;</h2>
+                <h2 class="title">
+                  <%=data[i].ORGANO %>&nbsp;<%=data[i].GENERO %>
+                  <span class="pull-right pagado">Solicitado&nbsp;<%=data[i].HORA %></span><br />
+                  <p class="advertencia pull-right"><%=data[i].TIEMPO %>&nbsp;Horas</p>
+                  </h4>
+                  <p class="summary"><b>Atendido por:&nbsp;</b><b
+                      class="text-info"><%=data[i].ATENDIDO %><br /></b><b>Responsable:&nbsp;</b><a
+                      class="responsable"><%=data[i].RESPONSABLE %></a></p>
+                  <p class="unidad">
+                    SALA DE ATENCION:&nbsp;<%=data[i].SALA %>&nbsp;<%=data[i].UNIDAD %>
+                  </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <% 
+                  }  %>
+      </tbody>
+    </table>
+  </div>
+  <link href="sticky-footer.css" rel="stylesheet">
+  <footer class="footer" style="background-color: #FFCC33">
+    <div class="container">
+      <div id="centrado">
+        <span class="text-light">
+          <p><small>Desarrollado por Walter Rodriguez | &copy; 2021</small></p>
+        </span></div>
+    </div>
+  </footer>
+</body>
+
+</html>
